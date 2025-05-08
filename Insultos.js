@@ -23,10 +23,10 @@ function obtenerInsultoAleatorio() {
 client.once('ready', () => {
   console.log(`Bot conectado como ${client.user.tag}`);
 
-  const canal = client.channels.cache.get(CANAL_ID);
+  const canal = client.channels.cache.get(CANAL_NOMBRE);
 
   if (!canal) {
-    console.error('Canal no encontrado. Verifica el ID.');
+    console.error('Canal no encontrado. Verifica el nombre.');
     return;
   }
 
