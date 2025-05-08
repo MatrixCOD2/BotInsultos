@@ -8,7 +8,8 @@ const client = new Client({
 
 // Configuración — CAMBIA ESTOS DATOS
 const INTERVALO_MS = 5 * 60 * 1000; // 5 minutos
-const CANAL_ID = process.env.CANAL_ID;
+
+const CANAL_NOMBRE = process.env.CANAL_NOMBRE || 'general📲';
 const USUARIO_ID = process.env.USUARIO_ID;
 //const CANAL_ID = '1355079546189381652'; // ID del canal donde se enviará el mensaje
 //const USUARIO_ID = '719810360374329387'; // ID del usuario a mencionar
