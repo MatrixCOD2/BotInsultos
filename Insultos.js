@@ -1,4 +1,4 @@
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, GatewayIntentBits, ChannelType } = require('discord.js');
 const insults = require('./insultos.json');
 require('dotenv').config();
 
@@ -6,15 +6,11 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
 
-// Configuración — CAMBIA ESTOS DATOS
 const INTERVALO_MS = 5 * 60 * 1000; // 5 minutos
-
-const CANAL_NOMBRE = process.env.CANAL_NOMBRE || 'general📲';
+const CANAL_NOMBRE = process.env.CANAL_NOMBRE; // <- nombre, no ID
 const USUARIO_ID = process.env.USUARIO_ID;
-//const CANAL_ID = '1355079546189381652'; // ID del canal donde se enviará el mensaje
-//const USUARIO_ID = '719810360374329387'; // ID del usuario a mencionar
+const BOT_TOKEN = process.env.BOT_TOKEN;
 
-// Función para elegir un insulto aleatorio
 function obtenerInsultoAleatorio() {
   const todas = Object.values(insults).flat();
   return todas[Math.floor(Math.random() * todas.length)];
@@ -23,18 +19,22 @@ function obtenerInsultoAleatorio() {
 client.once('ready', () => {
   console.log(`Bot conectado como ${client.user.tag}`);
 
-  const canal = client.channels.cache.get(CANAL_NOMBRE);
+  // Buscamos el canal por nombre
+  const canal = client.channels.cache.find(
+    c => c.name === CANAL_NOMBRE && c.type === ChannelType.GuildText
+  );
 
   if (!canal) {
-    console.error('Canal no encontrado. Verifica el nombre.');
+    console.error(`Canal "${CANAL_NOMBRE}" no encontrado. Verifica el nombre.`);
     return;
   }
 
-  // Envío inicial y luego cada 5 minutos
+  console.log(`Canal encontrado: ${canal.name}`);
+
   setInterval(() => {
     const insulto = obtenerInsultoAleatorio();
-    canal.send(`<@${USUARIO_ID}>, ${insulto}`);
+    canal.send(`<@${USUARIO_ID}>, ${insulto}`).catch(console.error);
   }, INTERVALO_MS);
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(BOT_TOKEN);
