@@ -1,0 +1,13 @@
+{
+    "name": "mi-bot-discord",
+    "version": "1.0.0",
+"main": "src/insultos.js",
+"scripts": {
+  "start": "node src/insultos.js"
+},
+    "dependencies": {
+      "discord.js": "^14.0.0",
+      "dotenv": "^10.0.0"
+    }
+}
+  
