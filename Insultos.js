@@ -6,7 +6,7 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages]
 });
 
-const INTERVALO_MS = 5 * 60 * 1000; // 5 minutos
+const INTERVALO_MS = 3 * 60 * 1000; // 5 minutos
 const CANAL_NOMBRE = process.env.CANAL_NOMBRE; // <- nombre, no ID
 const USUARIO_ID = process.env.USUARIO_ID;
 const BOT_TOKEN = process.env.BOT_TOKEN;
